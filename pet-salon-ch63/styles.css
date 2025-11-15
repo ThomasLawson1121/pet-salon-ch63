@@ -1,0 +1,17 @@
+body {
+    background-color: #f7f9fc;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h4, h5 {
+    text-align: center;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.list-group-item {
+    font-size: 1.1em;
+    text-align: center;
+}
