@@ -22,15 +22,15 @@ let pet3 = {
     breed: "Mixed"
 };
 
-// 2. Array of pets (rename it so it doesn't conflict with the HTML element)
+
 let pets = [pet1, pet2, pet3];
 
-// 3. Display pet count
+
 function displayPetCount() {
     document.getElementById("petCount").innerText = pets.length;
 }
 
-// 4. Display pet names
+
 function displayPetNames() {
     let list = document.getElementById("petList");
     list.innerHTML = ""; 
@@ -43,7 +43,7 @@ function displayPetNames() {
     }
 }
 
-// 5. Run functions when the page loads
+
 displayPetCount();
 displayPetNames();
 
