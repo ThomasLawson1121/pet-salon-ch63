@@ -1,25 +1,11 @@
-let pet1 = {
-    name: "Bob",
-    age: 6,
-    gender: "Male",
-    service: "Bath",
-    breed: "Mixed"
-};
-
-let pet2 = {
-    name: "Charlie",
-    age: 5,
-    gender: "Male",
-    service: "Vaccination",
-    breed: "Mixed"
-};
-
-let pet3 = {
-    name: "Harlie",
-    age: 5,
-    gender: "Female",
-    service: "Vaccination",
-    breed: "Mixed"
+let salon = {
+    name: "The Fashion Pet",
+    address: {
+        street: "123 Main St",
+        city: "San Diego",
+        zip: "92101"
+    },
+    phone: "555-555-1234"
 };
 
 
@@ -43,8 +29,27 @@ function displayPetNames() {
     }
 }
 
+function Pet(name, age, gender, breed, service, type) {
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+    this.breed = breed;
+    this.service = service;
+    this.type = type;
+}
+
+let pet1 = new Pet("Bob", 6, "Male", "Mixed", "Bath", "Dog");
+let pet2 = new Pet("Charlie", 5, "Male", "Mixed", "Vaccination", "Dog");
+let pet3 = new Pet("Harlie", 5, "Female", "Mixed", "Hair Cut", "Cat");
 
 displayPetCount();
 displayPetNames();
 
 
+function displaySalonInfo() {
+    document.getElementById("salonInfo").innerHTML =
+        `${salon.name} – Located at ${salon.address.street}, ${salon.address.city}, ${salon.address.zip}. 
+         Phone: ${salon.phone}`;
+}
+
+displaySalonInfo();

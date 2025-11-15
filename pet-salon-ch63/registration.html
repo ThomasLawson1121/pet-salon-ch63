@@ -27,6 +27,38 @@
     </div>
 </nav>
 
+<div class="card p-3 mt-4 shadow-sm">
+    <h5 class="text-primary">Register New Pet</h5>
+
+    <form id="registerForm">
+        <input id="name" class="form-control my-2" type="text" placeholder="Name">
+        <input id="age" class="form-control my-2" type="number" placeholder="Age">
+
+        <select id="gender" class="form-control my-2">
+            <option value="" disabled selected>Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+
+        <input id="breed" class="form-control my-2" type="text" placeholder="Breed">
+        <input id="service" class="form-control my-2" type="text" placeholder="Service">
+
+        <select id="type" class="form-control my-2">
+            <option value="" disabled selected>Select Type</option>
+            <option>Dog</option>
+            <option>Cat</option>
+            <option>Bird</option>
+        </select>
+
+        <button type="button" class="btn btn-success w-100 mt-2" onclick="registerPet()">Register Pet</button>
+    </form>
+</div>
+
+<div class="container mt-5">
+    <h1 class="text-center">About Our Salon</h1>
+    <p class="text-center" id="salonInfo"></p>
+</div>
+
 <div class="container my-5">
     <h1 class="text-center mb-4">Pet Registration</h1>
 
