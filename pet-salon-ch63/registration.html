@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration - Pet Salon</title>
 
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+
+    <title>Pet Registration</title>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.html">Pet Salon</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
-                aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="index.html">About Us</a></li>
@@ -27,52 +29,41 @@
     </div>
 </nav>
 
-<div class="card p-3 mt-4 shadow-sm">
-    <h5 class="text-primary">Register New Pet</h5>
+<div class="container mt-4">
+    <h2>Register a Pet</h2>
 
-    <form id="registerForm">
-        <input id="name" class="form-control my-2" type="text" placeholder="Name">
-        <input id="age" class="form-control my-2" type="number" placeholder="Age">
-
-        <select id="gender" class="form-control my-2">
-            <option value="" disabled selected>Select Gender</option>
-            <option>Male</option>
-            <option>Female</option>
-        </select>
-
-        <input id="breed" class="form-control my-2" type="text" placeholder="Breed">
-        <input id="service" class="form-control my-2" type="text" placeholder="Service">
-
-        <select id="type" class="form-control my-2">
-            <option value="" disabled selected>Select Type</option>
-            <option>Dog</option>
-            <option>Cat</option>
-            <option>Bird</option>
-        </select>
-
-        <button type="button" class="btn btn-success w-100 mt-2" onclick="registerPet()">Register Pet</button>
-    </form>
-</div>
-
-<div class="container mt-5">
-    <h1 class="text-center">About Our Salon</h1>
-    <p class="text-center" id="salonInfo"></p>
-</div>
-
-<div class="container my-5">
-    <h1 class="text-center mb-4">Pet Registration</h1>
-
-    <div class="card p-3 shadow-sm">
-        <h4 class="text-success text-center">Total Registered Pets: <span id="petCount">0</span></h4>
+    <!-- Form -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <input id="txtName" class="form-control mb-2" type="text" placeholder="Pet Name">
+            <input id="txtAge" class="form-control mb-2" type="number" placeholder="Age">
+            <input id="txtBreed" class="form-control mb-2" type="text" placeholder="Breed">
+            <input id="txtService" class="form-control mb-2" type="text" placeholder="Service">
+            <button class="btn btn-primary w-100" onclick="registerPet()">Register Pet</button>
+        </div>
     </div>
 
-    <div class="card p-3 mt-4 shadow-sm">
-        <h5 class="text-primary">Registered Pet Names:</h5>
-        <ul id="petList" class="list-group"></ul>
-    </div>
+    <!-- Pet Table -->
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Breed</th>
+                <th>Service</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="petTableBody"></tbody>
+    </table>
+
 </div>
 
-<script src="/scripts/script.js"></script>
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Your JS -->
+<script src="register.js"></script>
+
 </body>
 </html>

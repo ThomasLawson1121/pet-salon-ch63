@@ -1,55 +1,64 @@
-let salon = {
-    name: "The Fashion Pet",
-    address: {
-        street: "123 Main St",
-        city: "San Diego",
-        zip: "92101"
-    },
-    phone: "555-555-1234"
+// Pet array
+let petSalon = {
+    pets: []
 };
 
-
-let pets = [pet1, pet2, pet3];
-
-
-function displayPetCount() {
-    document.getElementById("petCount").innerText = pets.length;
-}
-
-
-function displayPetNames() {
-    let list = document.getElementById("petList");
-    list.innerHTML = ""; 
-
-    for (let i = 0; i < pets.length; i++) {
-        let li = document.createElement("li");
-        li.classList.add("list-group-item");
-        li.textContent = pets[i].name;
-        list.appendChild(li);
-    }
-}
-
-function Pet(name, age, gender, breed, service, type) {
+// Constructor
+function Pet(name, age, breed, service) {
     this.name = name;
     this.age = age;
-    this.gender = gender;
     this.breed = breed;
     this.service = service;
-    this.type = type;
 }
 
-let pet1 = new Pet("Bob", 6, "Male", "Mixed", "Bath", "Dog");
-let pet2 = new Pet("Charlie", 5, "Male", "Mixed", "Vaccination", "Dog");
-let pet3 = new Pet("Harlie", 5, "Female", "Mixed", "Hair Cut", "Cat");
+// Register function
+function registerPet() {
+    let name = document.getElementById("txtName").value;
+    let age = document.getElementById("txtAge").value;
+    let breed = document.getElementById("txtBreed").value;
+    let service = document.getElementById("txtService").value;
 
-displayPetCount();
-displayPetNames();
+    if(name === "") {
+        alert("Please enter a name");
+        return;
+    }
 
+    let newPet = new Pet(name, age, breed, service);
+    petSalon.pets.push(newPet);
 
-function displaySalonInfo() {
-    document.getElementById("salonInfo").innerHTML =
-        `${salon.name} – Located at ${salon.address.street}, ${salon.address.city}, ${salon.address.zip}. 
-         Phone: ${salon.phone}`;
+    displayRow();
+    clearForm();
 }
 
-displaySalonInfo();
+// Display function (table rows)
+function displayRow() {
+    let tableBody = document.getElementById("petTableBody");
+    tableBody.innerHTML = ""; // Clear table
+
+    petSalon.pets.forEach((pet, index) => {
+        let row = `
+            <tr>
+                <td>${pet.name}</td>
+                <td>${pet.age}</td>
+                <td>${pet.breed}</td>
+                <td>${pet.service}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="deletePet(${index})">X</button></td>
+            </tr>
+        `;
+        tableBody.innerHTML += row;
+    });
+}
+
+// Delete function
+function deletePet(index) {
+    petSalon.pets.splice(index, 1);
+    displayRow();
+}
+
+// Clear form inputs
+function clearForm() {
+    document.getElementById("txtName").value = "";
+    document.getElementById("txtAge").value = "";
+    document.getElementById("txtBreed").value = "";
+    document.getElementById("txtService").value = "";
+}
