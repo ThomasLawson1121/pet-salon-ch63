@@ -12,26 +12,44 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.html">Pet Salon</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="index.html">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="services.html">services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="registration.html">Registration</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="index.html">About Us</a></li>
+                <li class="nav-item"><a class="nav-link active" href="services.html">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="registration.html">Registration</a></li>
             </ul>
         </div>
     </div>
 </nav>
+<div class="container">
+    <h2>Register a New Service</h2>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <div class="md-3">
+        <input id="serviceName" class="form-control mb-2" type="text" placeholder="Service Name">
+        <input id="servicePrice" class="form-control mb-2" type="number" placeholder="Price">
+        <textarea id="serviceDesc" class="form-control mb-2" placeholder="Service Description"></textarea>
+        <button class="btn btn-primary w-100" onclick="registerService()">Register Service</button>
+    </div>
+
+    <hr>
+
+    <h3>Available Services</h3>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Service</th>
+                <th>Price</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody id="serviceTableBody"></tbody>
+    </table>
+</div>  
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="scripts/script.js"></script>
     
 </body>
 </html>
