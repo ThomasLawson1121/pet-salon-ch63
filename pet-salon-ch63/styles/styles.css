@@ -15,3 +15,65 @@ h1, h4, h5 {
     font-size: 1.1em;
     text-align: center;
 }
+body {
+    background-color: #f7f9fc;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* HARO SECTION */
+.hero-section {
+    height: 60vh;
+    background: url("/images/ChatGPT\ Image\ Nov\ 24\,\ 2025\,\ 05_50_23\ PM.png") center/cover no-repeat;
+    background-color: rgba(0,0,0,0.4);
+    background-blend-mode: multiply;
+}
+
+/* FEATURE BOXES */
+.feature-box {
+    background: #ffffff;
+    border-radius: 12px;
+    transition: all 0.2s ease-in-out;
+}
+.feature-box:hover {
+    transform: translateY(-5px);
+}
+
+/* HEADERS */
+h1, h2, h4 {
+    text-align: center;
+}
+
+/*  RWD BORDERS */
+.border-danger {
+    border: 2px solid red !important;
+}
+.dark-mode {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
+
+.dark-mode .card {
+    background-color: #1e1e1e !important;
+    color: #fff !important;
+}
+
+.dark-mode table,
+.dark-mode th,
+.dark-mode td {
+    background-color: #1e1e1e !important;
+    color: #fff !important;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+    background-color: #1a1a1a !important;
+    color: #fff !important;
+    border-color: #555 !important;
+}
+
+.dark-mode nav,
+.dark-mode header {
+    background-color: #222 !important;
+    color: #fff !important;
+}

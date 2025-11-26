@@ -1,3 +1,6 @@
+
+
+
 // Pet array
 let petSalon = {
     pets: []
@@ -11,17 +14,36 @@ function Pet(name, age, breed, service) {
     this.service = service;
 }
 
-// Register function
-function registerPet() {
-    let name = document.getElementById("txtName").value;
-    let age = document.getElementById("txtAge").value;
-    let breed = document.getElementById("txtBreed").value;
-    let service = document.getElementById("txtService").value;
+// Service constructor
+function Service(name, price, description) {
+    this.name = name;
+    this.price = price;
+    this.description = description;
+}
 
-    if(name === "") {
-        alert("Please enter a name");
-        return;
-    }
+// Arrays
+let services = [];
+
+/* ====== Pet registration ====== */
+function registerPet() {
+    let name = document.getElementById("txtName")?.value.trim() || "";
+    let age = document.getElementById("txtAge")?.value.trim() || "";
+    let breed = document.getElementById("txtBreed")?.value.trim() || "";
+    let service = document.getElementById("txtService")?.value.trim() || "";
+
+    let inputs = ["txtName","txtAge","txtBreed","txtService"];
+    let valid = true;
+    inputs.forEach(id => {
+        let el = document.getElementById(id);
+        if(!el) return;
+        if(el.value.trim() === "") {
+            el.classList.add("border-danger");
+            valid = false;
+        } else {
+            el.classList.remove("border-danger");
+        }
+    });
+    if(!valid) return;
 
     let newPet = new Pet(name, age, breed, service);
     petSalon.pets.push(newPet);
@@ -30,18 +52,18 @@ function registerPet() {
     clearForm();
 }
 
-// Display function (table rows)
 function displayRow() {
     let tableBody = document.getElementById("petTableBody");
-    tableBody.innerHTML = ""; // Clear table
+    if(!tableBody) return;
+    tableBody.innerHTML = ""; 
 
     petSalon.pets.forEach((pet, index) => {
         let row = `
             <tr>
-                <td>${pet.name}</td>
-                <td>${pet.age}</td>
-                <td>${pet.breed}</td>
-                <td>${pet.service}</td>
+                <td>${escapeHtml(pet.name)}</td>
+                <td>${escapeHtml(pet.age)}</td>
+                <td>${escapeHtml(pet.breed)}</td>
+                <td>${escapeHtml(pet.service)}</td>
                 <td><button class="btn btn-danger btn-sm" onclick="deletePet(${index})">X</button></td>
             </tr>
         `;
@@ -49,33 +71,27 @@ function displayRow() {
     });
 }
 
-// Delete function
 function deletePet(index) {
     petSalon.pets.splice(index, 1);
     displayRow();
 }
 
-// Clear form inputs
 function clearForm() {
-    document.getElementById("txtName").value = "";
-    document.getElementById("txtAge").value = "";
-    document.getElementById("txtBreed").value = "";
-    document.getElementById("txtService").value = "";
+    let ids = ["txtName","txtAge","txtBreed","txtService"];
+    ids.forEach(id => {
+        let el = document.getElementById(id);
+        if(el) {
+            el.value = "";
+            el.classList.remove("border-danger");
+        }
+    });
 }
 
-
-// Service constructor
-function Service(name, price, description) {
-    this.name = name;
-    this.price = price;
-    this.description = description;
-}
-
-// Array to store services
-let services = [];
+/* ====== Services registration  ====== */
 
 function registerService() {
-    // Grab fields using jQuery
+    
+    if (typeof jQuery === "undefined") return;
     let sName = $("#serviceName");
     let sPrice = $("#servicePrice");
     let sDesc = $("#serviceDesc");
@@ -83,10 +99,10 @@ function registerService() {
     let inputs = [sName, sPrice, sDesc];
     let valid = true;
 
-    // Remove previous red borders
+    
     inputs.forEach(i => i.removeClass("border-danger"));
 
-    // Validate
+    
     inputs.forEach(i => {
         if (i.val().trim() === "") {
             i.addClass("border-danger");
@@ -96,8 +112,8 @@ function registerService() {
 
     if (!valid) return;
 
-    // Create service object
-    let newService = new Service(sName.val(), sPrice.val(), sDesc.val());
+    
+    let newService = new Service(sName.val().trim(), sPrice.val().trim(), sDesc.val().trim());
     services.push(newService);
 
     displayServices();
@@ -105,15 +121,16 @@ function registerService() {
 }
 
 function displayServices() {
+    if (typeof jQuery === "undefined") return;
     let table = $("#serviceTableBody");
     table.html("");
 
     services.forEach(service => {
         let row = `
             <tr>
-                <td>${service.name}</td>
-                <td>${service.price}</td>
-                <td>${service.description}</td>
+                <td>${escapeHtml(service.name)}</td>
+                <td>${escapeHtml(service.price)}</td>
+                <td>${escapeHtml(service.description)}</td>
             </tr>
         `;
         table.append(row);
@@ -121,9 +138,65 @@ function displayServices() {
 }
 
 function clearServiceForm() {
+    if (typeof jQuery === "undefined") return;
     $("#serviceName").val("");
     $("#servicePrice").val("");
     $("#serviceDesc").val("");
 
     $("input, textarea").removeClass("border-danger");
 }
+
+/* ====== Utilities ====== */
+
+function escapeHtml(unsafe) {
+    if (unsafe === undefined || unsafe === null) return "";
+    return String(unsafe)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+/* ====== Dark Mode Toggle ====== */
+
+function setDarkMode(enabled) {
+    if(enabled){
+        document.body.classList.add("dark-mode");
+    } else {
+        document.body.classList.remove("dark-mode");
+    }
+    try { localStorage.setItem("tommys_dark_mode", enabled ? "1" : "0"); } catch(e){}
+    let btn = document.getElementById("darkToggle");
+    if(btn){
+        btn.innerText = enabled ? "Light" : "Dark";
+    }
+}
+
+function toggleDarkMode(){
+    let enabled = document.body.classList.contains("dark-mode");
+    setDarkMode(!enabled);
+}
+
+/* ====== Init on load ====== */
+
+document.addEventListener("DOMContentLoaded", function(){
+    try {
+        let saved = localStorage.getItem("tommys_dark_mode");
+        if(saved === "1") setDarkMode(true);
+    } catch(e){}
+
+    let t = document.getElementById("darkToggle");
+    if(t){
+        t.addEventListener("click", function(e){
+            e.preventDefault();
+            toggleDarkMode();
+        });
+    }
+
+    if(window.jQuery) {
+        $(".faw-item").click(function() {
+            $(this).find(".answer").toggle();
+        });
+    }
+}); 

@@ -4,51 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
 
-    <title>Pet Registration</title>
+    <title>Pet Registration — Tommys Pet Salon</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">Pet Salon</a>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Tommys Pet Salon</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="index.html">About Us</a></li>
-                <li class="nav-item"><a class="nav-link active" href="services.html">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="registration.html">Registration</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                <li class="nav-item"><a class="nav-link active" href="registration.html">Registration</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<div class="container mt-4">
-    <h2>Register a New Service</h2>
 
-    <div class="col-md-6">
-        <input id="serviceName" class="form-control mb-2" type="text" placeholder="Service Name">
-        <input id="servicePrice" class="form-control mb-2" type="number" placeholder="Price">
-        <textarea id="serviceDesc" class="form-control mb-2" placeholder="Service Description"></textarea>
-        <button class="btn btn-primary w-100" onclick="registerService()">Register Service</button>
+<header class="page-header text-center py-5">
+    <h1 class="fw-bold">Pet Registration</h1>
+    <p class="text-muted">Register your furry friend for grooming and salon services.</p>
+</header>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-sm p-4 mb-5">
+                <h4 class="text-center mb-3">Register a Pet</h4>
+
+                <input id="txtName" class="form-control mb-2" type="text" placeholder="Pet Name">
+                <input id="txtAge" class="form-control mb-2" type="number" placeholder="Age">
+                <input id="txtBreed" class="form-control mb-2" type="text" placeholder="Breed">
+                <input id="txtService" class="form-control mb-2" type="text" placeholder="Requested Service">
+                <button class="btn btn-success w-100 mt-2" onclick="registerPet()">Register Pet</button>
+            </div>
+
+        </div>
     </div>
 
-    <hr>
+    <hr class="my-4">
 
-    <h3>Available Services</h3>
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Service</th>
-                <th>Price</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody id="serviceTableBody"></tbody>
-    </table>
+    <h3 class="text-center mb-3">Registered Pets</h3>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Breed</th>
+                    <th>Service</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="petTableBody"></tbody>
+        </table>
+    </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
