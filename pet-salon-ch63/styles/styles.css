@@ -23,7 +23,7 @@ body {
 /* HARO SECTION */
 .hero-section {
     height: 60vh;
-    background: url("/images/ChatGPT\ Image\ Nov\ 24\,\ 2025\,\ 05_50_23\ PM.png") center/cover no-repeat;
+    background: url("/images/SalonLogo.png") center/cover no-repeat;
     background-color: rgba(0,0,0,0.4);
     background-blend-mode: multiply;
 }
@@ -77,3 +77,4 @@ h1, h2, h4 {
     background-color: #222 !important;
     color: #fff !important;
 }
+

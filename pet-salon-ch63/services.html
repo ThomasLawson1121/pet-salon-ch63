@@ -38,17 +38,26 @@
 
 <div class="container my-4">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-
+        <div class="col-md-8">
             <div class="card shadow-sm p-4">
                 <h4 class="text-center mb-3">Register a New Service</h4>
 
                 <input id="serviceName" class="form-control mb-2" type="text" placeholder="Service Name">
                 <input id="servicePrice" class="form-control mb-2" type="number" placeholder="Price">
                 <textarea id="serviceDesc" class="form-control mb-2" placeholder="Service Description"></textarea>
-                <button class="btn btn-primary w-100 mt-2" onclick="registerService()">Register Service</button>
+                
+                <div class="d-flex justify-content-between mt-3">
+                    <button class="btn btn-success flex-fill me-2" onclick="registerService()">
+                        Register Service
+                    </button>
+                    <button id="retrieveServiceBtn" class="btn btn-secondary flex-fill me-2">
+                        Retrieve 
+                    </button>
+                    <button id="deleteServiceBtn" class="btn btn-danger flex-fill">
+                        Delete 
+                    </button>
+                </div>
             </div>
-
         </div>
     </div>
 
@@ -66,7 +75,8 @@
                     <th>Description</th>
                 </tr>
             </thead>
-            <tbody id="serviceTableBody"></tbody>
+            <tbody id="serviceTableBody">
+                </tbody>
         </table>
     </div>
 

@@ -1,12 +1,7 @@
-
-
-
-// Pet array
 let petSalon = {
     pets: []
 };
 
-// Constructor
 function Pet(name, age, breed, service) {
     this.name = name;
     this.age = age;
@@ -14,17 +9,77 @@ function Pet(name, age, breed, service) {
     this.service = service;
 }
 
-// Service constructor
 function Service(name, price, description) {
     this.name = name;
     this.price = price;
     this.description = description;
 }
 
-// Arrays
-let services = [];
+let services = []; 
 
-/* ====== Pet registration ====== */
+
+function registerService() {
+    if (typeof jQuery === "undefined") return;
+    let sName = $("#serviceName");
+    let sPrice = $("#servicePrice");
+    let sDesc = $("#serviceDesc");
+
+    let inputs = [sName, sPrice, sDesc];
+    let valid = true;
+
+    inputs.forEach(i => i.removeClass("border-danger"));
+    inputs.forEach(i => {
+        if (i.val().trim() === "" || (i.attr('id') === 'servicePrice' && (isNaN(parseFloat(i.val())) || parseFloat(i.val()) <= 0))) {
+            i.addClass("border-danger");
+            valid = false;
+        }
+    });
+
+    if (!valid) return;
+
+    localStorage.setItem("lastServiceName", sName.val().trim());
+    localStorage.setItem("lastServicePrice", parseFloat(sPrice.val()).toFixed(2));
+    localStorage.setItem("lastServiceDesc", sDesc.val().trim());
+    
+    clearServiceForm();
+    displayServices(); 
+
+}
+
+function displayServices() {
+    if (typeof jQuery === "undefined") return;
+    let table = $("#serviceTableBody");
+    
+    table.html("");
+
+    const name = localStorage.getItem("lastServiceName");
+    const price = localStorage.getItem("lastServicePrice");
+    const description = localStorage.getItem("lastServiceDesc");
+
+    if (name) {
+        let formattedPrice = `$${parseFloat(price).toFixed(2)}`;
+        let row = `
+            <tr>
+                <td>${escapeHtml(name)}</td>
+                <td>${formattedPrice}</td>
+                <td>${escapeHtml(description)}</td>
+            </tr>
+        `;
+        table.append(row);
+    } else {
+        table.append('<tr><td colspan="3" class="text-center text-muted">No saved service data available.</td></tr>');
+    }
+}
+
+function clearServiceForm() {
+    if (typeof jQuery === "undefined") return;
+    $("#serviceName").val("");
+    $("#servicePrice").val("");
+    $("#serviceDesc").val("");
+
+    $("input, textarea").removeClass("border-danger");
+}
+
 function registerPet() {
     let name = document.getElementById("txtName")?.value.trim() || "";
     let age = document.getElementById("txtAge")?.value.trim() || "";
@@ -87,66 +142,7 @@ function clearForm() {
     });
 }
 
-/* ====== Services registration  ====== */
 
-function registerService() {
-    
-    if (typeof jQuery === "undefined") return;
-    let sName = $("#serviceName");
-    let sPrice = $("#servicePrice");
-    let sDesc = $("#serviceDesc");
-
-    let inputs = [sName, sPrice, sDesc];
-    let valid = true;
-
-    
-    inputs.forEach(i => i.removeClass("border-danger"));
-
-    
-    inputs.forEach(i => {
-        if (i.val().trim() === "") {
-            i.addClass("border-danger");
-            valid = false;
-        }
-    });
-
-    if (!valid) return;
-
-    
-    let newService = new Service(sName.val().trim(), sPrice.val().trim(), sDesc.val().trim());
-    services.push(newService);
-
-    displayServices();
-    clearServiceForm();
-}
-
-function displayServices() {
-    if (typeof jQuery === "undefined") return;
-    let table = $("#serviceTableBody");
-    table.html("");
-
-    services.forEach(service => {
-        let row = `
-            <tr>
-                <td>${escapeHtml(service.name)}</td>
-                <td>${escapeHtml(service.price)}</td>
-                <td>${escapeHtml(service.description)}</td>
-            </tr>
-        `;
-        table.append(row);
-    });
-}
-
-function clearServiceForm() {
-    if (typeof jQuery === "undefined") return;
-    $("#serviceName").val("");
-    $("#servicePrice").val("");
-    $("#serviceDesc").val("");
-
-    $("input, textarea").removeClass("border-danger");
-}
-
-/* ====== Utilities ====== */
 
 function escapeHtml(unsafe) {
     if (unsafe === undefined || unsafe === null) return "";
@@ -157,8 +153,6 @@ function escapeHtml(unsafe) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
-
-/* ====== Dark Mode Toggle ====== */
 
 function setDarkMode(enabled) {
     if(enabled){
@@ -178,9 +172,9 @@ function toggleDarkMode(){
     setDarkMode(!enabled);
 }
 
-/* ====== Init on load ====== */
 
 document.addEventListener("DOMContentLoaded", function(){
+    
     try {
         let saved = localStorage.getItem("tommys_dark_mode");
         if(saved === "1") setDarkMode(true);
@@ -198,5 +192,36 @@ document.addEventListener("DOMContentLoaded", function(){
         $(".faw-item").click(function() {
             $(this).find(".answer").toggle();
         });
+        
+        if(document.getElementById("serviceTableBody")) {
+            displayServices(); 
+
+ 
+            $("#retrieveServiceBtn").click(function(e) {
+                e.preventDefault();
+
+                const name = localStorage.getItem("lastServiceName");
+                const price = localStorage.getItem("lastServicePrice");
+                const description = localStorage.getItem("lastServiceDesc");
+
+                $("#serviceName").val(name || "");
+                $("#servicePrice").val(price || "");
+                $("#serviceDesc").val(description || "");
+                
+
+            });
+
+            $("#deleteServiceBtn").click(function(e) {
+                e.preventDefault();
+                
+                localStorage.removeItem("lastServiceName");
+                localStorage.removeItem("lastServicePrice");
+                localStorage.removeItem("lastServiceDesc");
+
+                clearServiceForm();
+                displayServices(); 
+                
+            });
+        }
     }
-}); 
+});
